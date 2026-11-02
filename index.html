@@ -1,0 +1,653 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="description" content="Portfolio of Jaiganesh, a Java and React.js full stack developer in Chennai.">
+  <title>Jaiganesh · Full Stack Developer</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800&family=Sora:wght@500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #f3f5fb;
+      --bg-2: #eef2ff;
+      --surface: #ffffff;
+      --fg: #161b2e;
+      --muted: #5c657c;
+      --line: #d9dfef;
+      --indigo: #4f46e5;
+      --teal: #0f9d9a;
+      --coral: #e05a4f;
+      --amber: #d97706;
+      --on-accent: #ffffff;
+      --glow: 0 24px 50px -28px rgba(79, 70, 229, 0.45);
+      --shadow: 0 18px 40px -24px rgba(22, 27, 46, 0.28);
+      --nav-h: 76px;
+      --font: "Outfit", system-ui, sans-serif;
+      --display: "Sora", "Outfit", sans-serif;
+      --mono: "JetBrains Mono", ui-monospace, monospace;
+      color-scheme: light;
+    }
+    :root[data-theme="dark"] {
+      --bg: #0b1020;
+      --bg-2: #121933;
+      --surface: #151c33;
+      --fg: #eef1fb;
+      --muted: #9aa4c0;
+      --line: #2a3354;
+      --indigo: #8b85ff;
+      --teal: #3ecfc8;
+      --coral: #ff8b7a;
+      --amber: #f5b64a;
+      --on-accent: #0b1020;
+      --glow: 0 24px 50px -24px rgba(139, 133, 255, 0.45);
+      --shadow: 0 18px 40px -24px rgba(0, 0, 0, 0.7);
+      color-scheme: dark;
+    }
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0;
+      background: var(--bg);
+      color: var(--fg);
+      font: 400 17px/1.65 var(--font);
+      overflow-x: hidden;
+    }
+    img { max-width: 100%; display: block; }
+    a { color: var(--indigo); }
+    a:focus-visible, button:focus-visible { outline: 2px solid var(--indigo); outline-offset: 3px; }
+    h1, h2, h3 { font-family: var(--display); margin: 0; letter-spacing: -0.03em; line-height: 1.08; }
+    p { margin: 0; }
+    .skip {
+      position: absolute; left: -999px; top: 10px; z-index: 80;
+      background: var(--indigo); color: var(--on-accent); padding: 8px 14px; border-radius: 8px;
+    }
+    .skip:focus { left: 12px; }
+    .wrap { width: min(1160px, calc(100% - 36px)); margin-inline: auto; }
+    section { padding: 96px 0 0; scroll-margin-top: calc(var(--nav-h) + 16px); }
+
+    .progress {
+      position: fixed; inset: 0 0 auto; height: 3px; z-index: 70;
+      background: linear-gradient(90deg, var(--indigo), var(--teal), var(--coral));
+      transform-origin: left; transform: scaleX(0);
+    }
+
+    .blobs { position: fixed; inset: 0; pointer-events: none; z-index: 0; overflow: hidden; }
+    .blob {
+      position: absolute; width: 420px; height: 420px; filter: blur(70px); opacity: .28; border-radius: 50%;
+      animation: drift 18s ease-in-out infinite;
+    }
+    .b1 { background: #818cf8; top: -80px; right: 8%; }
+    .b2 { background: #5eead4; bottom: 10%; left: -80px; animation-delay: -6s; opacity: .2; }
+    .b3 { background: #fb7185; top: 48%; right: -100px; animation-delay: -10s; opacity: .16; }
+    :root[data-theme="dark"] .blob { opacity: .18; }
+    @keyframes drift {
+      0%, 100% { transform: translate(0, 0) scale(1); }
+      50% { transform: translate(-30px, 24px) scale(1.08); }
+    }
+
+    .nav {
+      position: sticky; top: 0; z-index: 60;
+      height: var(--nav-h);
+      display: flex; align-items: center;
+      background: color-mix(in srgb, var(--bg) 72%, transparent);
+      backdrop-filter: blur(18px) saturate(1.2);
+      border-bottom: 1px solid transparent;
+      transition: border-color .25s, box-shadow .25s, background .25s;
+    }
+    .nav.stuck {
+      border-bottom-color: var(--line);
+      box-shadow: 0 10px 30px -20px rgba(0,0,0,.35);
+      background: color-mix(in srgb, var(--bg) 88%, transparent);
+    }
+    .nav-inner { width: min(1160px, calc(100% - 36px)); margin: 0 auto; display: flex; align-items: center; justify-content: space-between; gap: 16px; }
+    .logo {
+      font: 700 18px var(--display); letter-spacing: .08em; text-decoration: none; color: var(--fg);
+      display: flex; align-items: center; gap: 10px;
+    }
+    .mark {
+      width: 34px; height: 34px; border-radius: 10px;
+      background: linear-gradient(135deg, var(--indigo), var(--teal));
+      color: #fff; display: grid; place-items: center; font: 700 13px var(--display);
+    }
+    .links { display: flex; align-items: center; gap: 22px; }
+    .links a { color: var(--muted); text-decoration: none; font-weight: 500; font-size: 15px; }
+    .links a:hover, .links a.active { color: var(--fg); }
+    .nav-actions { display: flex; align-items: center; gap: 10px; }
+    .theme {
+      display: inline-flex; align-items: center; gap: 8px;
+      border: 1px solid var(--line); background: var(--surface); color: var(--fg);
+      border-radius: 999px; padding: 8px 12px; cursor: pointer; font: 600 13px var(--font);
+    }
+    .theme .dot { width: 18px; height: 18px; display: grid; place-items: center; }
+    .menu-btn {
+      display: none; width: 42px; height: 42px; border-radius: 12px;
+      border: 1px solid var(--line); background: var(--surface); color: var(--fg); cursor: pointer;
+    }
+    .btn {
+      display: inline-flex; align-items: center; justify-content: center; gap: 8px;
+      text-decoration: none; border: 1px solid var(--line); background: var(--surface); color: var(--fg);
+      border-radius: 999px; padding: 11px 18px; font: 600 14.5px var(--font); cursor: pointer;
+      transition: transform .2s, box-shadow .2s, background .2s;
+    }
+    .btn:hover { transform: translateY(-2px); box-shadow: var(--shadow); }
+    .btn.primary {
+      background: linear-gradient(135deg, var(--indigo), #6366f1 60%, var(--teal));
+      border-color: transparent; color: #fff;
+    }
+    :root[data-theme="dark"] .btn.primary { color: #0b1020; }
+
+    .hero { position: relative; z-index: 1; display: grid; grid-template-columns: 1.05fr .95fr; gap: 48px; align-items: center; padding: 42px 0 20px; }
+    .kicker {
+      display: inline-flex; align-items: center; gap: 8px;
+      font: 500 12px var(--mono); letter-spacing: .12em; text-transform: uppercase; color: var(--teal);
+      background: color-mix(in srgb, var(--teal) 12%, var(--surface));
+      border: 1px solid color-mix(in srgb, var(--teal) 30%, var(--line));
+      padding: 6px 12px; border-radius: 999px;
+    }
+    .kicker i { width: 8px; height: 8px; border-radius: 50%; background: var(--teal); animation: pulse 1.6s infinite; }
+    @keyframes pulse { 50% { opacity: .35; transform: scale(.8); } }
+    .hero h1 { font-size: clamp(2.4rem, 5.6vw, 4.4rem); margin-top: 18px; }
+    .hero h1 em { font-style: normal; background: linear-gradient(90deg, var(--indigo), var(--teal)); -webkit-background-clip: text; background-clip: text; color: transparent; }
+    .typed { margin-top: 16px; font: 600 1.2rem/1.4 var(--display); color: var(--indigo); min-height: 1.4em; }
+    .sub { color: var(--muted); max-width: 50ch; margin-top: 12px; }
+    .cta { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 28px; }
+    .stack-row { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 28px; }
+    .chip {
+      font: 500 12px var(--mono); padding: 5px 10px; border-radius: 8px;
+      background: var(--surface); border: 1px solid var(--line); color: var(--muted);
+    }
+
+    .hero-visual { position: relative; }
+    .hero-frame {
+      border-radius: 28px; overflow: hidden; position: relative;
+      box-shadow: var(--glow); border: 1px solid var(--line); aspect-ratio: 4/5;
+    }
+    .hero-frame img { width: 100%; height: 100%; object-fit: cover; transform: scale(1.04); }
+    .hero-frame::after {
+      content: ""; position: absolute; inset: 0;
+      background: linear-gradient(180deg, transparent 35%, color-mix(in srgb, var(--bg) 82%, #000) 100%);
+    }
+    .glass {
+      position: absolute; left: 18px; right: 18px; bottom: 18px; z-index: 2;
+      background: color-mix(in srgb, var(--surface) 78%, transparent);
+      backdrop-filter: blur(14px); border: 1px solid color-mix(in srgb, white 20%, var(--line));
+      border-radius: 18px; padding: 14px 16px; font: 400 12.5px/1.7 var(--mono);
+    }
+    .glass b { color: var(--teal); }
+    .float {
+      position: absolute; z-index: 3; background: var(--surface); border: 1px solid var(--line);
+      border-radius: 14px; padding: 10px 12px; box-shadow: var(--shadow);
+      font: 600 13px var(--font); display: flex; align-items: center; gap: 8px;
+      animation: floaty 5s ease-in-out infinite;
+    }
+    .float.a { top: 22px; left: -18px; }
+    .float.b { top: 38%; right: -22px; animation-delay: -1.6s; }
+    .float.c { bottom: 34%; left: -10px; animation-delay: -2.8s; }
+    .dotc { width: 8px; height: 8px; border-radius: 50%; }
+    @keyframes floaty { 50% { transform: translateY(-8px); } }
+
+    .sec-head { max-width: 720px; margin-bottom: 34px; }
+    .eyebrow { font: 600 12px var(--mono); letter-spacing: .16em; text-transform: uppercase; color: var(--indigo); }
+    .sec-head h2 { font-size: clamp(1.9rem, 4vw, 2.8rem); margin-top: 10px; }
+    .sec-head p { color: var(--muted); margin-top: 10px; }
+
+    .filters { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 24px; }
+    .filters button {
+      border: 1px solid var(--line); background: var(--surface); color: var(--muted);
+      border-radius: 999px; padding: 8px 14px; cursor: pointer; font: 600 14px var(--font);
+    }
+    .filters button[aria-pressed="true"] { background: var(--fg); color: var(--bg); border-color: var(--fg); }
+
+    .work { display: grid; grid-template-columns: repeat(3, minmax(0,1fr)); gap: 22px; }
+    .piece { background: var(--surface); border: 1px solid var(--line); border-radius: 22px; overflow: hidden; box-shadow: var(--shadow); display: flex; flex-direction: column; min-width: 0; transition: transform .28s ease; }
+    .piece:hover { transform: translateY(-8px); }
+    .thumb { height: 190px; overflow: hidden; position: relative; }
+    .thumb img { width: 100%; height: 100%; object-fit: cover; transition: transform .5s ease; }
+    .piece:hover .thumb img { transform: scale(1.08); }
+    .tag { position: absolute; top: 12px; left: 12px; background: color-mix(in srgb, var(--surface) 88%, transparent); backdrop-filter: blur(8px); border-radius: 999px; padding: 4px 10px; font: 600 11px var(--mono); }
+    .body { padding: 18px 18px 20px; display: flex; flex-direction: column; gap: 10px; flex: 1; }
+    .body h3 { font-size: 1.35rem; }
+    .body .line { color: var(--muted); font-size: 15px; }
+    .mini { display: flex; flex-wrap: wrap; gap: 6px; }
+    .mini span { font: 500 11px var(--mono); color: var(--muted); background: var(--bg); border-radius: 6px; padding: 3px 7px; }
+    details summary { cursor: pointer; font-weight: 600; color: var(--indigo); list-style: none; }
+    details summary::-webkit-details-marker { display: none; }
+    details ul { padding-left: 18px; display: grid; gap: 6px; margin: 10px 0 0; font-size: 14.5px; color: var(--muted); }
+
+    .about { display: grid; grid-template-columns: .9fr 1.1fr; gap: 42px; align-items: start; }
+    .portrait { position: relative; }
+    .portrait img { width: 100%; aspect-ratio: 4/5; object-fit: cover; border-radius: 28px; border: 1px solid var(--line); box-shadow: var(--glow); }
+    .id-card {
+      position: absolute; right: -12px; bottom: 24px; width: min(230px, 70%);
+      background: var(--surface); border: 1px solid var(--line); border-radius: 16px; padding: 14px;
+      box-shadow: var(--shadow);
+    }
+    .id-card strong { display: block; }
+    .id-card span { color: var(--muted); font-size: 13px; }
+    .values { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin-top: 22px; }
+    .value { background: var(--surface); border: 1px solid var(--line); border-radius: 16px; padding: 14px; }
+    .value h4 { margin: 0 0 4px; font-size: 1rem; }
+    .value p { color: var(--muted); font-size: 14px; }
+    .tiers { display: grid; grid-template-columns: repeat(3, minmax(0,1fr)); gap: 16px; margin-top: 36px; }
+    .tier { background: var(--surface); border: 1px solid var(--line); border-radius: 18px; padding: 18px; }
+    .tier h4 { margin: 0; }
+    .tier .desc { color: var(--muted); font-size: 14px; margin: 6px 0 12px; }
+    .chips { display: flex; flex-wrap: wrap; gap: 7px; padding: 0; margin: 0; list-style: none; }
+    .chips li { font: 500 12px var(--mono); border: 1px solid var(--line); border-radius: 999px; padding: 4px 9px; }
+
+    .steps { display: grid; grid-template-columns: repeat(4, minmax(0,1fr)); gap: 14px; }
+    .step {
+      background: var(--surface); border: 1px solid var(--line); border-radius: 20px; padding: 20px;
+      min-height: 220px; display: flex; flex-direction: column; gap: 8px;
+    }
+    .n { font: 800 2rem var(--display); background: linear-gradient(135deg, var(--indigo), var(--teal)); -webkit-background-clip: text; background-clip: text; color: transparent; }
+    .step p { color: var(--muted); font-size: 14.5px; }
+    .job { display: grid; grid-template-columns: .4fr 1fr; gap: 18px 28px; padding: 22px 0; border-top: 1px solid var(--line); }
+    .when { font: 500 13px var(--mono); color: var(--teal); }
+    .job ul { margin: 8px 0 0; padding-left: 18px; color: var(--muted); display: grid; gap: 7px; }
+
+    .resume-card {
+      display: grid; grid-template-columns: 1.2fr .8fr; gap: 28px; align-items: center;
+      background: var(--surface); border: 1px solid var(--line); border-radius: 28px; overflow: hidden; box-shadow: var(--glow);
+    }
+    .resume-copy { padding: 36px; }
+    .resume-art { min-height: 240px; background: url("https://images.unsplash.com/photo-1517694710534-d33cbf26829a?auto=format&fit=crop&w=900&q=70") center/cover; position: relative; }
+    .resume-art::after { content: ""; position: absolute; inset: 0; background: linear-gradient(90deg, color-mix(in srgb, var(--surface) 20%, transparent), transparent); }
+
+    .contact { display: grid; grid-template-columns: 1fr 1fr; gap: 28px; }
+    .card { background: var(--surface); border: 1px solid var(--line); border-radius: 24px; padding: 26px; box-shadow: var(--shadow); }
+    .email { font: 600 18px var(--mono); overflow-wrap: anywhere; user-select: all; }
+    .social { display: flex; gap: 16px; margin-top: 16px; font-weight: 600; }
+    .faq details { border-bottom: 1px solid var(--line); }
+    .faq summary { cursor: pointer; font: 600 1.15rem var(--display); padding: 16px 0; list-style: none; display: flex; justify-content: space-between; }
+    .faq summary::-webkit-details-marker { display: none; }
+    .faq .ans { color: var(--muted); padding-bottom: 16px; }
+
+    footer { margin-top: 90px; border-top: 1px solid var(--line); padding: 36px 0 48px; position: relative; z-index: 1; }
+    .foot { display: flex; justify-content: space-between; gap: 16px; flex-wrap: wrap; color: var(--muted); font-size: 14px; }
+    .big { font: 800 clamp(3rem, 12vw, 7rem)/.9 var(--display); background: linear-gradient(90deg, var(--indigo), var(--teal), var(--coral)); -webkit-background-clip: text; background-clip: text; color: transparent; margin: 18px 0; }
+
+    .reveal { opacity: 0; transform: translateY(22px); animation: rise .7s ease forwards; }
+    .reveal:nth-child(2) { animation-delay: .08s; }
+    .reveal:nth-child(3) { animation-delay: .16s; }
+    @keyframes rise { to { opacity: 1; transform: none; } }
+    .inview { opacity: 0; transform: translateY(28px); transition: opacity .7s ease, transform .7s ease; }
+    .inview.show { opacity: 1; transform: none; }
+
+    .drawer {
+      display: none; position: fixed; inset: var(--nav-h) 0 0; background: color-mix(in srgb, var(--bg) 94%, transparent);
+      z-index: 55; padding: 24px; flex-direction: column; gap: 18px;
+    }
+    .drawer.open { display: flex; }
+    .drawer a { color: var(--fg); text-decoration: none; font: 600 1.3rem var(--display); }
+
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after { animation: none !important; transition: none !important; }
+    }
+    @media (max-width: 900px) {
+      .hero, .about, .contact, .resume-card, .steps, .work, .tiers { grid-template-columns: 1fr; }
+      .links { display: none; }
+      .menu-btn { display: grid; place-items: center; }
+      .float.a, .float.c { left: 10px; }
+      .float.b { right: 10px; }
+      .id-card { right: 12px; }
+      .job { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+  <a class="skip" href="#main">Skip to content</a>
+  <div class="progress" id="progress"></div>
+  <div class="blobs" aria-hidden="true"><div class="blob b1"></div><div class="blob b2"></div><div class="blob b3"></div></div>
+
+  <header class="nav" id="nav">
+    <div class="nav-inner">
+      <a class="logo" href="#top"><span class="mark">JG</span> JAIGANESH</a>
+      <nav class="links" aria-label="Primary">
+        <a href="#work">Work</a>
+        <a href="#about">About</a>
+        <a href="#process">Process</a>
+        <a href="#resume">Resume</a>
+        <a href="#contact">Contact</a>
+      </nav>
+      <div class="nav-actions">
+        <button class="theme" id="theme" type="button" aria-label="Switch colour theme">
+          <span class="dot" id="theme-icon">☾</span>
+          <span id="theme-label">Dark</span>
+        </button>
+        <a class="btn primary" href="resume/Jaiganesh_Full_Stack_Developer_Resume.pdf?v=20261102b" download="Jaiganesh_Full_Stack_Developer_Resume.pdf">Resume PDF</a>
+        <button class="menu-btn" id="menu" type="button" aria-label="Open menu">☰</button>
+      </div>
+    </div>
+  </header>
+  <div class="drawer" id="drawer">
+    <a href="#work">Work</a><a href="#about">About</a><a href="#process">Process</a>
+    <a href="#resume">Resume</a><a href="#contact">Contact</a>
+  </div>
+
+  <main id="main">
+    <div class="wrap hero" id="top">
+      <div>
+        <p class="kicker reveal"><i></i> Chennai · Open to roles</p>
+        <h1 class="reveal">Jaiganesh, a <em>web developer</em> who ships Java and React products.</h1>
+        <p class="typed reveal" id="typed"></p>
+        <p class="sub reveal">2.9 years of building, testing and supporting web applications in production — from Java and JSP services to React.js frontends.</p>
+        <div class="cta reveal">
+          <a class="btn primary" href="#work">See selected work</a>
+          <a class="btn" href="resume/Jaiganesh_Full_Stack_Developer_Resume.pdf?v=20261102b" download="Jaiganesh_Full_Stack_Developer_Resume.pdf">Download resume</a>
+        </div>
+        <div class="stack-row reveal">
+          <span class="chip">Java</span><span class="chip">React.js</span><span class="chip">SQL</span>
+          <span class="chip">Redis</span><span class="chip">JWT</span><span class="chip">AWS</span>
+        </div>
+      </div>
+      <div class="hero-visual reveal">
+        <div class="float a"><span class="dotc" style="background:var(--indigo)"></span> Frontend UI</div>
+        <div class="float b"><span class="dotc" style="background:var(--teal)"></span> REST APIs</div>
+        <div class="float c"><span class="dotc" style="background:var(--coral)"></span> Production ready</div>
+        <div class="hero-frame">
+          <img src="https://images.unsplash.com/photo-1498050108023-c5249f4df085?auto=format&fit=crop&w=1200&q=80" alt="Laptop with code on screen, representing web development work">
+          <div class="glass">
+            <div><b>GET</b> /api/profile · 200 OK</div>
+            { name: "Jaiganesh", role: "Full Stack Developer", stack: ["Java","React","SQL"] }
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <section class="wrap inview" id="work">
+      <div class="sec-head">
+        <p class="eyebrow">01 — Selected work</p>
+        <h2>Projects I have shipped</h2>
+        <p>Three production projects. Each one states plainly what my part was.</p>
+      </div>
+      <div class="filters" role="group" aria-label="Filter projects">
+        <button type="button" data-filter="all" aria-pressed="true">All</button>
+        <button type="button" data-filter="fullstack" aria-pressed="false">Full stack</button>
+        <button type="button" data-filter="frontend" aria-pressed="false">Frontend</button>
+      </div>
+      <div class="work" id="grid">
+        <article class="piece" data-type="fullstack">
+          <div class="thumb">
+            <img src="https://images.unsplash.com/photo-1551650975-87deedd944c3?auto=format&fit=crop&w=900&q=80" alt="Product interface on a laptop">
+            <span class="tag">Full stack</span>
+          </div>
+          <div class="body">
+            <h3>Paltalk</h3>
+            <p class="line">Web and desktop applications on a microservices architecture.</p>
+            <div class="mini"><span>Java</span><span>JSP</span><span>React.js</span><span>SQL Server</span></div>
+            <details>
+              <summary>Explore project</summary>
+              <ul>
+                <li>Built and maintained backend APIs and features in Java, JSP, JavaScript, React.js and SQL.</li>
+                <li>Secured REST endpoints with JWT authentication and authorization.</li>
+                <li>Added Redis caching to improve response time and scalability.</li>
+                <li>Handled SQL Server queries and stored procedure support.</li>
+                <li>Automated regression tests with Nightwatch.js.</li>
+                <li>Gained exposure to Kafka based messaging.</li>
+              </ul>
+            </details>
+          </div>
+        </article>
+        <article class="piece" data-type="frontend">
+          <div class="thumb">
+            <img src="https://images.unsplash.com/photo-1556742044-3c52d6e88c62?auto=format&fit=crop&w=900&q=80" alt="Payment and checkout experience on a device">
+            <span class="tag">Frontend</span>
+          </div>
+          <div class="body">
+            <h3>Unified Payment System</h3>
+            <p class="line">One payment gateway application for workflows across a platform.</p>
+            <div class="mini"><span>React.js</span><span>NestJS</span><span>JWT</span></div>
+            <details>
+              <summary>Explore project</summary>
+              <ul>
+                <li>Built frontend features in React.js.</li>
+                <li>Learned the NestJS backend flow, including API structure and request handling.</li>
+                <li>Gained exposure to JWT authentication protecting payment APIs.</li>
+                <li>Gained exposure to payment gateway integration through Cleverbridge.</li>
+              </ul>
+            </details>
+          </div>
+        </article>
+        <article class="piece" data-type="frontend">
+          <div class="thumb">
+            <img src="https://images.unsplash.com/photo-1586281380349-632531db7ed4?auto=format&fit=crop&w=900&q=80" alt="Documents and notes on a desk for extraction work">
+            <span class="tag">Frontend</span>
+          </div>
+          <div class="body">
+            <h3>Rollingstone (Maatrum)</h3>
+            <p class="line">A document extraction system that finds and shows the required fields.</p>
+            <div class="mini"><span>React.js</span><span>Python</span><span>Cursor</span></div>
+            <details>
+              <summary>Explore project</summary>
+              <ul>
+                <li>Built React.js components that display extracted document fields.</li>
+                <li>Worked on Python backend tasks with Cursor for AI assisted coding.</li>
+                <li>Learned document extraction concepts, training datasets and project workflow.</li>
+              </ul>
+            </details>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <section class="wrap inview" id="about">
+      <div class="sec-head">
+        <p class="eyebrow">02 — About</p>
+        <h2>The developer behind the work</h2>
+      </div>
+      <div class="about">
+        <div class="portrait">
+          <img src="https://images.unsplash.com/photo-1571171637578-41bc2dd41cd2?auto=format&fit=crop&w=1000&q=80" alt="Developer writing code at a workstation">
+          <div class="id-card">
+            <strong>Jaiganesh</strong>
+            <span>Full Stack Developer · Chennai</span>
+          </div>
+        </div>
+        <div>
+          <p class="eyebrow">13.08° N · 80.27° E</p>
+          <h3 style="font-size:2rem;margin:8px 0 12px">Hello, I'm Jaiganesh.</h3>
+          <p style="color:var(--muted)">I started at Thapovan Info Systems as a Java developer intern and moved into a full-time Software Developer role. Since then I have worked on backend APIs, database performance and production support for business applications.</p>
+          <p style="color:var(--muted);margin-top:12px">My main project is Paltalk, where I work across Java, JSP, JavaScript, React.js and SQL Server. I have also built React.js frontends for a payment gateway application and a document extraction system.</p>
+          <div class="values">
+            <div class="value"><h4>Reliable APIs</h4><p>Java and JSP REST services running in production.</p></div>
+            <div class="value"><h4>Careful with data</h4><p>SQL Server and MySQL queries tuned for performance.</p></div>
+            <div class="value"><h4>Tested before release</h4><p>Postman checks and Nightwatch.js regression tests.</p></div>
+            <div class="value"><h4>Faster with AI tools</h4><p>Cursor and Claude for coding, debugging and tests.</p></div>
+          </div>
+        </div>
+      </div>
+      <div class="tiers">
+        <div class="tier">
+          <h4>Hands-on</h4>
+          <p class="desc">Used in real projects and production work.</p>
+          <ul class="chips"><li>Java</li><li>JSP</li><li>JavaScript</li><li>React.js</li><li>HTML5 / CSS3</li><li>SQL Server</li><li>MySQL</li><li>Redis</li><li>JWT</li><li>REST APIs</li><li>AWS CloudWatch</li><li>Git</li></ul>
+        </div>
+        <div class="tier">
+          <h4>Working knowledge</h4>
+          <p class="desc">I understand how it works and can contribute.</p>
+          <ul class="chips"><li>Spring Boot</li><li>NestJS</li><li>Docker workflow</li></ul>
+        </div>
+        <div class="tier">
+          <h4>Exposure</h4>
+          <p class="desc">Seen in projects and worked alongside.</p>
+          <ul class="chips"><li>Python backend</li><li>Payment gateways</li><li>Apache Kafka</li></ul>
+        </div>
+      </div>
+    </section>
+
+    <section class="wrap inview" id="process">
+      <div class="sec-head">
+        <p class="eyebrow">03 — How I work</p>
+        <h2>From requirement to production</h2>
+      </div>
+      <div class="steps">
+        <div class="step"><span class="n">01</span><h3>Understand</h3><p>I join requirement and design discussions in Agile sprints, so I know what a feature must do before I write it.</p></div>
+        <div class="step"><span class="n">02</span><h3>Build</h3><p>I write REST APIs, SQL and user interfaces in Java, JSP and React.js, and use Cursor or Claude to move faster.</p></div>
+        <div class="step"><span class="n">03</span><h3>Test</h3><p>I check integrations in Postman and automate regression tests with Nightwatch.js before release.</p></div>
+        <div class="step"><span class="n">04</span><h3>Support</h3><p>After release I monitor AWS environments, read CloudWatch logs and fix production issues.</p></div>
+      </div>
+      <h3 style="margin:48px 0 8px;font-size:1.6rem">Where I have done it</h3>
+      <article class="job">
+        <div>
+          <h3>Software Developer</h3>
+          <p>Thapovan Info Systems</p>
+          <p class="when">Dec 2023 – Sep 2026</p>
+        </div>
+        <ul>
+          <li>Designed, developed and maintained Java and JSP REST APIs and backend services for production applications.</li>
+          <li>Developed features across frontend and backend using Java, JSP, JavaScript, React.js and SQL.</li>
+          <li>Optimized MySQL and SQL Server queries and schemas for performance.</li>
+          <li>Monitored AWS production environments and analyzed CloudWatch logs.</li>
+        </ul>
+      </article>
+      <article class="job">
+        <div>
+          <h3>Java Developer Intern</h3>
+          <p>Thapovan Info Systems</p>
+          <p class="when">3 months, before the full-time role</p>
+        </div>
+        <ul>
+          <li>Built and tested REST APIs and backend modules in Java for enterprise applications.</li>
+          <li>Worked with the team on the software development lifecycle, code reviews and coding best practices.</li>
+        </ul>
+      </article>
+    </section>
+
+    <section class="wrap inview" id="resume">
+      <div class="sec-head">
+        <p class="eyebrow">Resume</p>
+        <h2>One full stack resume</h2>
+        <p>A single PDF covering Java, React and production work. No Word file, no extra versions.</p>
+      </div>
+      <div class="resume-card">
+        <div class="resume-copy">
+          <h3 style="font-size:1.8rem">Full Stack Developer</h3>
+          <p style="color:var(--muted);margin:12px 0 22px">Java and JSP backend work with React.js frontend projects. Spring Boot and NestJS shown as working knowledge.</p>
+          <a class="btn primary" href="resume/Jaiganesh_Full_Stack_Developer_Resume.pdf?v=20261102b" download="Jaiganesh_Full_Stack_Developer_Resume.pdf">Download PDF</a>
+        </div>
+        <div class="resume-art" role="img" aria-label="Developer working on a laptop"></div>
+      </div>
+    </section>
+
+    <section class="wrap inview" id="contact">
+      <div class="contact">
+        <div>
+          <p class="eyebrow">04 — Contact</p>
+          <h2 style="font-size:clamp(1.9rem,4vw,2.8rem);margin-top:10px">Start a conversation</h2>
+          <p style="color:var(--muted);margin-top:12px;max-width:46ch">I am looking for Java developer, React.js developer and full stack developer roles. Tell me about the team and I will reply.</p>
+        </div>
+        <div class="card">
+          <p class="eyebrow">Email</p>
+          <p class="email" id="email">ganeshjai1326@gmail.com</p>
+          <div style="margin-top:16px"><button class="btn primary" id="copy" type="button">Copy email</button></div>
+          <p id="status" role="status" style="min-height:1.3em;color:var(--muted);font-size:14px;margin-top:8px"></p>
+          <div class="social">
+            <a href="https://linkedin.com/in/jaiganesh26" target="_blank" rel="noopener">LinkedIn</a>
+            <a href="https://github.com/Jaiganesh2613/MyDevelopment" target="_blank" rel="noopener">GitHub</a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="wrap inview">
+      <div class="sec-head">
+        <p class="eyebrow">FAQ</p>
+        <h2>Before we begin</h2>
+      </div>
+      <div class="faq">
+        <details><summary>Which roles are you looking for?</summary><p class="ans">Java developer, React.js developer and full stack developer roles, where I can work on both APIs and user interfaces.</p></details>
+        <details><summary>Do you work with Spring Boot?</summary><p class="ans">I have working knowledge of Spring Boot. My production work so far has been in Java and JSP, and Spring Boot is the framework I am building on next.</p></details>
+        <details><summary>How do you use AI tools?</summary><p class="ans">I use Cursor and Claude to speed up coding, debugging and writing tests. The Rollingstone project was built in a Cursor based workflow.</p></details>
+        <details><summary>Where can I read your resume?</summary><p class="ans">Use the resume section. There is one Full Stack PDF.</p></details>
+      </div>
+    </section>
+  </main>
+
+  <footer class="wrap">
+    <div class="big">Jaiganesh.</div>
+    <div class="foot"><span>© 2026 Jaiganesh</span><span>Made in Chennai</span></div>
+  </footer>
+
+  <script>
+    (function () {
+      var root = document.documentElement;
+      var label = document.getElementById('theme-label');
+      var icon = document.getElementById('theme-icon');
+      function applyTheme(mode) {
+        root.setAttribute('data-theme', mode);
+        localStorage.setItem('theme', mode);
+        var dark = mode === 'dark';
+        label.textContent = dark ? 'Dark' : 'Light';
+        icon.textContent = dark ? '☾' : '☀';
+      }
+      var saved = localStorage.getItem('theme');
+      if (saved === 'dark' || saved === 'light') applyTheme(saved);
+      else applyTheme(window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+      document.getElementById('theme').addEventListener('click', function () {
+        applyTheme(root.getAttribute('data-theme') === 'dark' ? 'light' : 'dark');
+      });
+
+      var nav = document.getElementById('nav');
+      var progress = document.getElementById('progress');
+      function onScroll() {
+        nav.classList.toggle('stuck', window.scrollY > 8);
+        var h = document.documentElement.scrollHeight - window.innerHeight;
+        progress.style.transform = 'scaleX(' + (h > 0 ? window.scrollY / h : 0) + ')';
+      }
+      onScroll();
+      window.addEventListener('scroll', onScroll, { passive: true });
+
+      var drawer = document.getElementById('drawer');
+      document.getElementById('menu').addEventListener('click', function () {
+        drawer.classList.toggle('open');
+      });
+      drawer.querySelectorAll('a').forEach(function (a) {
+        a.addEventListener('click', function () { drawer.classList.remove('open'); });
+      });
+
+      var roles = ['Full Stack Developer', 'Java + React.js', 'APIs, UI, production care'];
+      var typed = document.getElementById('typed');
+      var ri = 0, ci = 0, del = false;
+      function tick() {
+        var word = roles[ri];
+        typed.textContent = word.slice(0, ci) + (del ? '' : '|');
+        if (!del && ci < word.length) { ci++; setTimeout(tick, 70); }
+        else if (!del && ci === word.length) { del = true; setTimeout(tick, 1400); }
+        else if (del && ci > 0) { ci--; setTimeout(tick, 40); }
+        else { del = false; ri = (ri + 1) % roles.length; setTimeout(tick, 200); }
+      }
+      if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) tick();
+      else typed.textContent = roles[0];
+
+      document.querySelectorAll('.filters button').forEach(function (b) {
+        b.addEventListener('click', function () {
+          var f = b.getAttribute('data-filter');
+          document.querySelectorAll('.filters button').forEach(function (x) {
+            x.setAttribute('aria-pressed', x === b ? 'true' : 'false');
+          });
+          document.querySelectorAll('#grid .piece').forEach(function (p) {
+            p.hidden = !(f === 'all' || p.getAttribute('data-type') === f);
+          });
+        });
+      });
+
+      var io = new IntersectionObserver(function (entries) {
+        entries.forEach(function (e) { if (e.isIntersecting) e.target.classList.add('show'); });
+      }, { threshold: 0.12 });
+      document.querySelectorAll('.inview').forEach(function (el) { io.observe(el); });
+
+      var email = document.getElementById('email');
+      var status = document.getElementById('status');
+      document.getElementById('copy').addEventListener('click', function () {
+        var text = email.textContent.trim();
+        function fail() { status.textContent = 'Select the email and copy it.'; }
+        try { navigator.clipboard.writeText(text).then(function () { status.textContent = 'Email copied.'; }, fail); }
+        catch (e) { fail(); }
+      });
+    })();
+  </script>
+</body>
+</html>
